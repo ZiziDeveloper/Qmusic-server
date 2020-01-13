@@ -1,5 +1,7 @@
+import org.springframework.boot.gradle.tasks.run.BootRun
+
 plugins {
-	id 'org.springframework.boot' version '2.2.2.RELEASE'
+	id 'org.springframework.boot' version '2.1.11.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 	id 'java'
 }
@@ -16,6 +18,8 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.1'
+	runtimeOnly 'com.h2database:h2'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
@@ -23,4 +27,23 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+
+task production(type: BootRun)  {
+	classpath = sourceSets.main.runtimeClasspath
+	main= 's.Application'
+	systemProperty 'spring.profiles.active', 'prd'
+}
+
+task boottest(type: BootRun)  {
+	classpath = sourceSets.main.runtimeClasspath
+	main= 's.Application'
+	systemProperty 'spring.profiles.active', 'test'
+}
+
+task dev(type: BootRun)  {
+	classpath = sourceSets.main.runtimeClasspath
+	main= 's.Application'
+	systemProperty 'spring.profiles.active', 'dev'
 }
