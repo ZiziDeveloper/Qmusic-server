@@ -3,11 +3,10 @@ spring:
   profiles:
     active: dev
   datasource:
-    url: jdbc:h2:mem:test
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
-    schema: classpath:db/schema.sql
+    url: jdbc:mysql://localhost/qmusic_dev?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+    username: dev
+    password: dev
   h2:
     console:
       path: /h2
@@ -15,12 +14,20 @@ spring:
       settings:
         web-allow-others: true
 
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.zizi.qmusic.server.domain
+
 logging:
   level:
+    java:
+      sql: debug
     org:
+      mybatis:
+        spring: debug
       springframework:
         web: debug
-  file: D:/logs/Qmusic-server.log
+  file: /logs/Qmusic-server.log
 
 
 ---
@@ -39,3 +46,4 @@ spring:
 server:
   port: 8223
 ---
+

@@ -1,0 +1,1 @@
+insert into q_user(name, ip, email) values ('樊华军', '192.168.104.180', '357724264@qq.com');
