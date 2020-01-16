@@ -1,12 +1,12 @@
 package com.zizi.qmusic.server.controller;
 
+import com.github.pagehelper.Page;
+import com.zizi.qmusic.server.common.vo.PageResponseVO;
 import com.zizi.qmusic.server.domain.UserDO;
 import com.zizi.qmusic.server.service.UserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -18,9 +18,14 @@ public class UserController {
 
 
     @GetMapping
-    public String userInfo(){
-        UserDO userDO = userService.getInfo();
-        return userDO.toString();
+    @ResponseBody
+    public PageResponseVO<Page<UserDO>> userInfo(){
+        Page<UserDO> page = userService.getInfo();
+
+        PageResponseVO pageResponseVO = new PageResponseVO();
+        BeanUtils.copyProperties(page, pageResponseVO);
+        pageResponseVO.setList(page.getResult());
+        return pageResponseVO;
     }
 
 }

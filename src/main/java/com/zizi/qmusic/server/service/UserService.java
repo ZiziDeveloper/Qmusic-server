@@ -1,5 +1,7 @@
 package com.zizi.qmusic.server.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.zizi.qmusic.server.domain.UserDO;
 import com.zizi.qmusic.server.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +13,9 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public UserDO getInfo(){
-        UserDO userDO = userMapper.getUserInfo();
-        return userDO;
+    public Page<UserDO> getInfo(){
+        Page<UserDO> page = PageHelper.startPage(1, 10).doSelectPage(()-> userMapper.getUserInfo());
+        return page;
     }
 
 }

@@ -4,7 +4,7 @@
 
 
     <select id="getUserInfo" resultType="com.zizi.qmusic.server.domain.UserDO">
-        select * from q_user;
+        select * from q_user
     </select>
 
 </mapper>
