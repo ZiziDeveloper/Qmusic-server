@@ -1,5 +1,8 @@
 package com.zizi.qmusic.server.common.vo;
 
+import com.github.pagehelper.Page;
+import org.springframework.beans.BeanUtils;
+
 import java.io.Serializable;
 
 public class PageResponseVO<T> implements Serializable {
@@ -46,6 +49,17 @@ public class PageResponseVO<T> implements Serializable {
      * 进行count查询的列名
      */
     private String countColumn;
+
+    public static PageResponseVO setPage(Page page){
+        PageResponseVO vo = new PageResponseVO();
+        if(page == null){
+            return vo;
+        }
+
+        vo.setList(page.getResult());
+        BeanUtils.copyProperties(page, vo);
+        return vo;
+    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

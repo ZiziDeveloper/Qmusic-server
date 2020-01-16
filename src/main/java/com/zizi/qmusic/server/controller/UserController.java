@@ -22,10 +22,7 @@ public class UserController {
     public PageResponseVO<Page<UserDO>> userInfo(){
         Page<UserDO> page = userService.getInfo();
 
-        PageResponseVO pageResponseVO = new PageResponseVO();
-        BeanUtils.copyProperties(page, pageResponseVO);
-        pageResponseVO.setList(page.getResult());
-        return pageResponseVO;
+        return PageResponseVO.setPage(page);
     }
 
 }

@@ -21,6 +21,10 @@ mybatis:
 
 logging:
   level:
+    com:
+      zizi:
+        qmusic:
+          server: debug # 本项目debug 打印sql日志
     java:
       sql: debug
     org:
