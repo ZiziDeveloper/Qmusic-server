@@ -15,9 +15,10 @@ spring:
         web-allow-others: true
 
 mybatis:
-  mapper-locations: classpath:mapping/*Mapper.xml
+  mapper-locations: classpath:mapper/*Mapper.xml
   type-aliases-package: com.zizi.qmusic.server.domain
-  config-location: classpath:mybatis/mybatis-config.xml
+  configuration:
+    map-underscore-to-camel-case: true
 
 logging:
   level:

@@ -19,8 +19,8 @@ public class UserController {
 
     @GetMapping
     @ResponseBody
-    public PageResponseVO<Page<UserDO>> userInfo(){
-        Page<UserDO> page = userService.getInfo();
+    public PageResponseVO<Page<UserDO>> userInfo(@RequestParam("order") String order){
+        Page<UserDO> page = userService.getInfo(order);
 
         return PageResponseVO.setPage(page);
     }

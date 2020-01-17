@@ -1,3 +1,3 @@
 ```bash
-curl --location --request GET 'localhost:8221/user'
+curl --location --request GET 'http://localhost:8221/user?order=name'
 ```
