@@ -14,9 +14,9 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public Page<UserDO> getInfo(String order){
+    public Page<UserDO> getInfo(String orderBy){
 
-        OrderByHelper.orderBy(order);
+        OrderByHelper.orderBy(orderBy);
         Page<UserDO> page = PageHelper.startPage(1, 10).doSelectPage(()-> userMapper.getUserInfo());
         return page;
     }
