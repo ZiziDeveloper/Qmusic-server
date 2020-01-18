@@ -3,7 +3,7 @@ package com.zizi.qmusic.server.domain;
 
 import java.io.Serializable;
 
-public class UserDO implements Serializable {
+public class UserDO extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
