@@ -1,1 +1,5 @@
-insert into q_user(name, ip, email) values ('樊华军', '192.168.104.180', '357724264@qq.com');
+INSERT INTO users (username, password, enabled) VALUES ('fanhuajun', '1', 1);
+INSERT INTO users (username, password, enabled) VALUES ('fanhuajun2', '1', 1);
+
+INSERT INTO authorities (username, authority) VALUES ('fanhuajun', 'ROLE_user');
+INSERT INTO authorities (username, authority) VALUES ('fanhuajun2', 'ROLE_admin');
