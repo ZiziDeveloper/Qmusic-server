@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
 import javax.sql.DataSource;
 
@@ -18,23 +19,25 @@ public class BasicAuthConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //BCryptPasswordEncoder
-//        auth
-//                .inMemoryAuthentication().passwordEncoder(new MyPasswordEncoder())
-//                    .withUser("fanhuajun").password("1").roles("USER").and()
-//                    .withUser("fanhuajun2").password("1").roles("ADMIN");
+        JdbcUserDetailsManager userDetailsService = new JdbcUserDetailsManager();
+        userDetailsService.setDataSource(dataSource);
+        userDetailsService.setEnableGroups(true);
+        userDetailsService.setEnableAuthorities(false);
+        userDetailsService.setGroupAuthoritiesByUsernameQuery(SqlConstant.groupAuthoritiesByUsernameQuery);
+        userDetailsService.setUsersByUsernameQuery(SqlConstant.usersByUsernameQuery);
+
         auth
-                .jdbcAuthentication().passwordEncoder(new MyPasswordEncoder())
-                .dataSource(dataSource);
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(new MyPasswordEncoder());
+
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http
                 .authorizeRequests()
-                .antMatchers("/admin/**").hasRole("admin")
-                .anyRequest().authenticated().and()
+                    .antMatchers("/admin/**").hasAuthority("admin")
+                    .anyRequest().authenticated().and()
                 .formLogin().and()
                 .httpBasic();
     }
